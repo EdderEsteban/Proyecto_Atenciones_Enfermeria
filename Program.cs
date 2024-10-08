@@ -7,15 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. 
 builder.Services.AddControllersWithViews();
-var configuration = builder.Configuration;
 
-/* PARA MySql - usando Pomelo */
-builder.Services.AddDbContext<DataContext>(
-	options => options.UseMySql(
-		configuration["ConnectionStrings:DefaultConnection"],
-		ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"])
-	)
-);
 
 
 var app = builder.Build();
