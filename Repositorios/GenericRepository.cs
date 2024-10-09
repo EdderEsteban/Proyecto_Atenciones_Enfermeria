@@ -9,45 +9,63 @@ namespace Proyecto_Atenciones_Enfermeria.Repositorios
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _context; // Contexto de la base de datos
+        private readonly DataContext _context; // Contexto de la base de datos
         private readonly DbSet<T> _dbSet;               // Referencia a la tabla específica
 
-        public GenericRepository(ApplicationDbContext context)
+        public GenericRepository(DataContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();                 // Obtener la tabla específica
         }
 
+        // Metodo para obtener todos los registros
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();           // Obtener todos los registros
+            // Obtener todos los registros con borrado = 0
+            return await _dbSet.Where(e => !EF.Property<bool>(e, "Borrado")).ToListAsync();
         }
 
+        // Metodo para obtener un registro por su ID
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);           // Obtener un registro por ID
+            var entity = await _dbSet.FindAsync(id);
+            // Retornar nulo si el registro está "borrado"
+            if (entity != null && EF.Property<bool>(entity, "Borrado"))
+            {
+                return null;
+            }
+            return entity;
         }
 
+        // Metodo para agregar un nuevo registro
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);               // Agregar nuevo registro
             await _context.SaveChangesAsync();           // Guardar cambios en la base de datos
         }
 
+        // Metodo para actualizar un registro
         public async Task UpdateAsync(T entity)
         {
             _dbSet.Update(entity);                       // Actualizar registro existente
             await _context.SaveChangesAsync();           // Guardar cambios
         }
 
+        // Metodo para borrar un registro
         public async Task DeleteAsync(int id)
         {
-            var entity = await _dbSet.FindAsync(id);     // Buscar el registro
+            var entity = await _dbSet.FindAsync(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);                   // Eliminar el registro
-                await _context.SaveChangesAsync();       // Guardar cambios
+                // Reflexión para establecer el campo "Borrado" a true
+                var borradoProp = entity.GetType().GetProperty("Borrado");
+                if (borradoProp != null && borradoProp.CanWrite)
+                {
+                    borradoProp.SetValue(entity, true);
+                    await _context.SaveChangesAsync(); // Guardar cambios
+                }
             }
         }
+
     }
 }

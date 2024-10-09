@@ -12,6 +12,9 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         public string? Hash_Password { get; set; }
         public string? Rol { get; set; }
 
+        // Propiedad de borrado
+        public bool Borrado { get; set; } = false;
+
         // Relación con la entidad Efector
         public Efector? Efector { get; set; }
 

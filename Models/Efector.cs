@@ -8,6 +8,9 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         public string? Localidad { get; set; }
         public string? Programa { get; set; }
 
+        // Propiedad de borrado
+        public bool Borrado { get; set; } = false;
+
         // Relación con la entidad Usuario
         public ICollection<Usuario>? Usuarios { get; set; }
     }

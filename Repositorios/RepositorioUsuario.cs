@@ -5,7 +5,7 @@ namespace Proyecto_Atenciones_Enfermeria.Repositorios
 {
     public class UsuarioRepository : GenericRepository<Usuario>
     {
-        public UsuarioRepository(ApplicationDbContext context) : base(context)
+        public UsuarioRepository(DataContext  context) : base(context)
         {
         }
 

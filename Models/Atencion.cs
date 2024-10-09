@@ -19,6 +19,10 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         // Relación con Derivacion
         public Derivacion? Derivacion { get; set; }
 
+        // Propiedad de borrado
+        public bool Borrado { get; set; } = false;
+
+
         // Relación con RegistroAtencion
         public ICollection<RegistroAtencion>? RegistrosAtencion { get; set; }
     }

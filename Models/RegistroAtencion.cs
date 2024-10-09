@@ -7,6 +7,9 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         public int Id_prestacion { get; set; } // Llave foránea
         public string? Observaciones { get; set; }
 
+        // Propiedad de borrado
+        public bool Borrado { get; set; } = false;
+
         // Relación con Atencion
         public Atencion? Atencion { get; set; }
 

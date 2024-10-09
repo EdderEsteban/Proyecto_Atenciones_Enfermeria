@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2024 a las 21:12:41
+-- Tiempo de generación: 09-10-2024 a las 21:18:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -34,7 +34,8 @@ CREATE TABLE `atencion` (
   `Id_derivacion` int(11) DEFAULT NULL,
   `Tipo_atencion` varchar(100) DEFAULT NULL,
   `Fecha_atencion` date NOT NULL,
-  `Hora_atencion` time NOT NULL
+  `Hora_atencion` time NOT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -46,7 +47,8 @@ CREATE TABLE `atencion` (
 CREATE TABLE `derivacion` (
   `Id_derivacion` int(11) NOT NULL,
   `Tipo_traslado` varchar(100) DEFAULT NULL,
-  `Destino` varchar(255) DEFAULT NULL
+  `Destino` varchar(255) DEFAULT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,7 +62,8 @@ CREATE TABLE `efector` (
   `Nombre` varchar(100) NOT NULL,
   `Direccion` varchar(255) DEFAULT NULL,
   `Localidad` varchar(100) DEFAULT NULL,
-  `Programa` varchar(100) DEFAULT NULL
+  `Programa` varchar(100) DEFAULT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -74,7 +77,8 @@ CREATE TABLE `paciente` (
   `Nombre` varchar(100) NOT NULL,
   `Apellido` varchar(100) NOT NULL,
   `DNI` varchar(20) NOT NULL,
-  `Telefono` varchar(20) DEFAULT NULL
+  `Telefono` varchar(20) DEFAULT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -86,7 +90,8 @@ CREATE TABLE `paciente` (
 CREATE TABLE `prestacion` (
   `Id_prestacion` int(11) NOT NULL,
   `Id_tipo_prestacion` int(11) NOT NULL,
-  `Prestacion` varchar(100) NOT NULL
+  `Prestacion` varchar(100) NOT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,7 +104,8 @@ CREATE TABLE `registro_atencion` (
   `Id_registro_atencion` int(11) NOT NULL,
   `Id_atencion` int(11) NOT NULL,
   `Id_prestacion` int(11) NOT NULL,
-  `Observaciones` varchar(255) DEFAULT NULL
+  `Observaciones` varchar(255) DEFAULT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -128,7 +134,8 @@ CREATE TABLE `usuarios` (
   `Correo` varchar(100) NOT NULL,
   `Telefono` varchar(20) DEFAULT NULL,
   `Hash_Password` varchar(255) NOT NULL,
-  `Rol` varchar(50) DEFAULT NULL
+  `Rol` varchar(50) DEFAULT NULL,
+  `borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

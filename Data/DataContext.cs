@@ -3,9 +3,9 @@ using Proyecto_Atenciones_Enfermeria.Models;
 
 namespace Proyecto_Atenciones_Enfermeria.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class DataContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
