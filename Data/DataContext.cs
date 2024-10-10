@@ -20,7 +20,7 @@ namespace Proyecto_Atenciones_Enfermeria.Data
         public DbSet<RegistroAtencion> RegistrosAtencion { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        { 
             base.OnModelCreating(modelBuilder);
 
             

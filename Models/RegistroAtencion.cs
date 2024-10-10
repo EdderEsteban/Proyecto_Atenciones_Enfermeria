@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
     public class RegistroAtencion
     {
+        [Key]
         public int Id_registro_atencion { get; set; }
         public int Id_atencion { get; set; }  // Llave foránea
         public int Id_prestacion { get; set; } // Llave foránea

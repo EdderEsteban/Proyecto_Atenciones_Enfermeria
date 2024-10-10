@@ -29,8 +29,8 @@ namespace Proyecto_Atenciones_Enfermeria.Repositorios
         public async Task<T> GetByIdAsync(int id)
         {
             var entity = await _dbSet.FindAsync(id);
-            // Retornar nulo si el registro está "borrado"
-            if (entity != null && EF.Property<bool>(entity, "Borrado"))
+            // Revisar el borrado....
+            if (entity != null)
             {
                 return null;
             }
@@ -55,16 +55,8 @@ namespace Proyecto_Atenciones_Enfermeria.Repositorios
         public async Task DeleteAsync(int id)
         {
             var entity = await _dbSet.FindAsync(id);
-            if (entity != null)
-            {
-                // Reflexión para establecer el campo "Borrado" a true
-                var borradoProp = entity.GetType().GetProperty("Borrado");
-                if (borradoProp != null && borradoProp.CanWrite)
-                {
-                    borradoProp.SetValue(entity, true);
-                    await _context.SaveChangesAsync(); // Guardar cambios
-                }
-            }
+            _dbSet.Remove(entity);                       // Borrar registro
+            await _context.SaveChangesAsync();           // Guardar cambios
         }
 
     }

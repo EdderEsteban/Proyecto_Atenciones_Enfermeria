@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
     public class Paciente
     {
+        [Key]
         public int Id_paciente { get; set; }
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }

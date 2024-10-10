@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
     public class TipoPrestacion
     {
+        [Key]
         public int Id_tipo_prestacion { get; set; }
         public string? Tipo_prestacion { get; set; }
 

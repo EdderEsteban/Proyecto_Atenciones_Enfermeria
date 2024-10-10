@@ -11,12 +11,17 @@ var configuration = builder.Configuration;
 // Add services to the container. 
 builder.Services.AddControllersWithViews();
 
+//Inyeccion del repositorio generico
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
 /* PARA MySql - usando Pomelo */
 builder.Services.AddDbContext<DataContext>(
     options => options.UseMySql(
         configuration["ConnectionStrings:DefaultConnection"],
         ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"])
     )
+    .EnableSensitiveDataLogging()// Esto esta aca para ver que ejecuta EntityFrameworkCore, despues borrar!!
 );
 
 // Servicio de Autenticación

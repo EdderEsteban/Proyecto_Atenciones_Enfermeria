@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
     public class Derivacion
     {
+        [Key]
         public int Id_derivacion { get; set; }
         public string? Tipo_traslado { get; set; }
         public string? Destino { get; set; }
