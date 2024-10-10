@@ -12,8 +12,8 @@ using Proyecto_Atenciones_Enfermeria.Data;
 namespace Proyecto_Atenciones_Enfermeria.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241010035406_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241010175201_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,9 +36,6 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     b.Property<bool>("Borrado")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("DerivacionId_derivacion")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Fecha_atencion")
                         .HasColumnType("datetime(6)");
 
@@ -54,22 +51,16 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     b.Property<int>("Id_usuario")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PacienteId_paciente")
-                        .HasColumnType("int");
-
                     b.Property<string>("Tipo_atencion")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("UsuarioId_usuario")
-                        .HasColumnType("int");
-
                     b.HasKey("Id_atencion");
 
-                    b.HasIndex("DerivacionId_derivacion");
+                    b.HasIndex("Id_derivacion");
 
-                    b.HasIndex("PacienteId_paciente");
+                    b.HasIndex("Id_paciente");
 
-                    b.HasIndex("UsuarioId_usuario");
+                    b.HasIndex("Id_usuario");
 
                     b.ToTable("Atenciones");
                 });
@@ -169,12 +160,9 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     b.Property<string>("PrestacionNombre")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("TipoPrestacionId_tipo_prestacion")
-                        .HasColumnType("int");
-
                     b.HasKey("Id_prestacion");
 
-                    b.HasIndex("TipoPrestacionId_tipo_prestacion");
+                    b.HasIndex("Id_tipo_prestacion");
 
                     b.ToTable("Prestaciones");
                 });
@@ -186,9 +174,6 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id_registro_atencion"));
-
-                    b.Property<int?>("AtencionId_atencion")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Borrado")
                         .HasColumnType("tinyint(1)");
@@ -202,14 +187,11 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     b.Property<string>("Observaciones")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("PrestacionId_prestacion")
-                        .HasColumnType("int");
-
                     b.HasKey("Id_registro_atencion");
 
-                    b.HasIndex("AtencionId_atencion");
+                    b.HasIndex("Id_atencion");
 
-                    b.HasIndex("PrestacionId_prestacion");
+                    b.HasIndex("Id_prestacion");
 
                     b.ToTable("RegistrosAtencion");
                 });
@@ -282,15 +264,19 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                 {
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.Derivacion", "Derivacion")
                         .WithMany("Atenciones")
-                        .HasForeignKey("DerivacionId_derivacion");
+                        .HasForeignKey("Id_derivacion");
 
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.Paciente", "Paciente")
                         .WithMany("Atenciones")
-                        .HasForeignKey("PacienteId_paciente");
+                        .HasForeignKey("Id_paciente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.Usuario", "Usuario")
                         .WithMany("Atenciones")
-                        .HasForeignKey("UsuarioId_usuario");
+                        .HasForeignKey("Id_usuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Derivacion");
 
@@ -303,7 +289,9 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                 {
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.TipoPrestacion", "TipoPrestacion")
                         .WithMany("Prestaciones")
-                        .HasForeignKey("TipoPrestacionId_tipo_prestacion");
+                        .HasForeignKey("Id_tipo_prestacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TipoPrestacion");
                 });
@@ -312,11 +300,15 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                 {
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.Atencion", "Atencion")
                         .WithMany("RegistrosAtencion")
-                        .HasForeignKey("AtencionId_atencion");
+                        .HasForeignKey("Id_atencion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Proyecto_Atenciones_Enfermeria.Models.Prestacion", "Prestacion")
                         .WithMany("RegistrosAtencion")
-                        .HasForeignKey("PrestacionId_prestacion");
+                        .HasForeignKey("Id_prestacion")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Atencion");
 

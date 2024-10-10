@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
@@ -7,8 +8,6 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         [Key]
         public int Id_tipo_prestacion { get; set; }
         public string? Tipo_prestacion { get; set; }
-
-        // Propiedad de borrado
         public bool Borrado { get; set; } = false;
 
         // Relación con Prestacion

@@ -9,6 +9,7 @@ namespace Proyecto_Atenciones_Enfermeria.Repositorios
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
+        Task LogicalDeleteAsync(int id);
         Task DeleteAsync(int id);
     }
 }

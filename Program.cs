@@ -3,26 +3,25 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Atenciones_Enfermeria.Data;
 using Proyecto_Atenciones_Enfermeria.Models;
-using Proyecto_Atenciones_Enfermeria.Repositorios; 
+using Proyecto_Atenciones_Enfermeria.Repositorios;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
-// Add services to the container. 
+// Añadir el servicio de validación antiforgery global
 builder.Services.AddControllersWithViews();
 
 //Inyeccion del repositorio generico
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
 
 /* PARA MySql - usando Pomelo */
 builder.Services.AddDbContext<DataContext>(
     options => options.UseMySql(
         configuration["ConnectionStrings:DefaultConnection"],
         ServerVersion.AutoDetect(configuration["ConnectionStrings:DefaultConnection"])
-    )
-    .EnableSensitiveDataLogging()// Esto esta aca para ver que ejecuta EntityFrameworkCore, despues borrar!!
-);
+        )
+    );
 
 // Servicio de Autenticación
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -33,6 +32,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Home/Restringido";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(5);//Tiempo de expiración
     });
+
 
 // Políticas de Autorización
 builder.Services.AddAuthorization(options =>

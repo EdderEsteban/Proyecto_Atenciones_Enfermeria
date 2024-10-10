@@ -25,17 +25,19 @@
         <div class="card-body">
             <form class="form" method="post" asp-action="ActualizarTipo">
                 <input type="hidden" asp-for="Id_tipo_prestacion" />
-                
+                @Html.AntiForgeryToken()
+
                 <div class="form-floating mb-3 col-6">
-                    <input asp-for="Tipo_prestacion" class="form-control" placeholder="" />
-                    <label asp-for="Tipo_prestacion" class="control-label">Tipo de Prestacion</label>
+                    <input asp-for="Tipo_prestacion" class="form-control" placeholder="Tipo de prestación" />
+                    <label asp-for="Tipo_prestacion" class="control-label">Tipo de Prestación</label>
                     <span asp-validation-for="Tipo_prestacion" class="text-danger"></span>
                 </div>
+
                 <div class="form-group text-center mt-3">
                     <button type="submit" class="btn btn-success w-25 mx-2">Guardar</button>
                     <a asp-action="ListadoTipo" class="btn btn-primary w-25 mx-2">Volver</a>
                 </div>
-            </form> 
+            </form>
         </div>
     </div>
 </div>

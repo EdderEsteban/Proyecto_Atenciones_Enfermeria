@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
@@ -6,7 +7,11 @@ namespace Proyecto_Atenciones_Enfermeria.Models
     {
         [Key]
         public int Id_registro_atencion { get; set; }
+
+        [ForeignKey("Atencion")]
         public int Id_atencion { get; set; }  // Llave foránea
+
+        [ForeignKey("Prestacion")]
         public int Id_prestacion { get; set; } // Llave foránea
         public string? Observaciones { get; set; }
 

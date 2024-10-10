@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto_Atenciones_Enfermeria.Models
 {
@@ -10,8 +11,6 @@ namespace Proyecto_Atenciones_Enfermeria.Models
         public string? Apellido { get; set; }
         public string? DNI { get; set; }
         public string? Telefono { get; set; }
-
-        // Propiedad de borrado
         public bool Borrado { get; set; } = false;
 
         // Relación con la entidad Atencion

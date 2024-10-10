@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Proyecto_Atenciones_Enfermeria.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -137,17 +137,17 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     Id_tipo_prestacion = table.Column<int>(type: "int", nullable: false),
                     PrestacionNombre = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TipoPrestacionId_tipo_prestacion = table.Column<int>(type: "int", nullable: true),
                     Borrado = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Prestaciones", x => x.Id_prestacion);
                     table.ForeignKey(
-                        name: "FK_Prestaciones_TiposPrestacion_TipoPrestacionId_tipo_prestacion",
-                        column: x => x.TipoPrestacionId_tipo_prestacion,
+                        name: "FK_Prestaciones_TiposPrestacion_Id_tipo_prestacion",
+                        column: x => x.Id_tipo_prestacion,
                         principalTable: "TiposPrestacion",
-                        principalColumn: "Id_tipo_prestacion");
+                        principalColumn: "Id_tipo_prestacion",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -164,29 +164,28 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fecha_atencion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Hora_atencion = table.Column<TimeSpan>(type: "time(6)", nullable: false),
-                    UsuarioId_usuario = table.Column<int>(type: "int", nullable: true),
-                    PacienteId_paciente = table.Column<int>(type: "int", nullable: true),
-                    DerivacionId_derivacion = table.Column<int>(type: "int", nullable: true),
                     Borrado = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Atenciones", x => x.Id_atencion);
                     table.ForeignKey(
-                        name: "FK_Atenciones_Derivaciones_DerivacionId_derivacion",
-                        column: x => x.DerivacionId_derivacion,
+                        name: "FK_Atenciones_Derivaciones_Id_derivacion",
+                        column: x => x.Id_derivacion,
                         principalTable: "Derivaciones",
                         principalColumn: "Id_derivacion");
                     table.ForeignKey(
-                        name: "FK_Atenciones_Pacientes_PacienteId_paciente",
-                        column: x => x.PacienteId_paciente,
+                        name: "FK_Atenciones_Pacientes_Id_paciente",
+                        column: x => x.Id_paciente,
                         principalTable: "Pacientes",
-                        principalColumn: "Id_paciente");
+                        principalColumn: "Id_paciente",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Atenciones_Usuarios_UsuarioId_usuario",
-                        column: x => x.UsuarioId_usuario,
+                        name: "FK_Atenciones_Usuarios_Id_usuario",
+                        column: x => x.Id_usuario,
                         principalTable: "Usuarios",
-                        principalColumn: "Id_usuario");
+                        principalColumn: "Id_usuario",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -200,55 +199,55 @@ namespace Proyecto_Atenciones_Enfermeria.Migrations
                     Id_prestacion = table.Column<int>(type: "int", nullable: false),
                     Observaciones = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Borrado = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AtencionId_atencion = table.Column<int>(type: "int", nullable: true),
-                    PrestacionId_prestacion = table.Column<int>(type: "int", nullable: true)
+                    Borrado = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RegistrosAtencion", x => x.Id_registro_atencion);
                     table.ForeignKey(
-                        name: "FK_RegistrosAtencion_Atenciones_AtencionId_atencion",
-                        column: x => x.AtencionId_atencion,
+                        name: "FK_RegistrosAtencion_Atenciones_Id_atencion",
+                        column: x => x.Id_atencion,
                         principalTable: "Atenciones",
-                        principalColumn: "Id_atencion");
+                        principalColumn: "Id_atencion",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RegistrosAtencion_Prestaciones_PrestacionId_prestacion",
-                        column: x => x.PrestacionId_prestacion,
+                        name: "FK_RegistrosAtencion_Prestaciones_Id_prestacion",
+                        column: x => x.Id_prestacion,
                         principalTable: "Prestaciones",
-                        principalColumn: "Id_prestacion");
+                        principalColumn: "Id_prestacion",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Atenciones_DerivacionId_derivacion",
+                name: "IX_Atenciones_Id_derivacion",
                 table: "Atenciones",
-                column: "DerivacionId_derivacion");
+                column: "Id_derivacion");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Atenciones_PacienteId_paciente",
+                name: "IX_Atenciones_Id_paciente",
                 table: "Atenciones",
-                column: "PacienteId_paciente");
+                column: "Id_paciente");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Atenciones_UsuarioId_usuario",
+                name: "IX_Atenciones_Id_usuario",
                 table: "Atenciones",
-                column: "UsuarioId_usuario");
+                column: "Id_usuario");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prestaciones_TipoPrestacionId_tipo_prestacion",
+                name: "IX_Prestaciones_Id_tipo_prestacion",
                 table: "Prestaciones",
-                column: "TipoPrestacionId_tipo_prestacion");
+                column: "Id_tipo_prestacion");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RegistrosAtencion_AtencionId_atencion",
+                name: "IX_RegistrosAtencion_Id_atencion",
                 table: "RegistrosAtencion",
-                column: "AtencionId_atencion");
+                column: "Id_atencion");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RegistrosAtencion_PrestacionId_prestacion",
+                name: "IX_RegistrosAtencion_Id_prestacion",
                 table: "RegistrosAtencion",
-                column: "PrestacionId_prestacion");
+                column: "Id_prestacion");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_EfectorId_efector",

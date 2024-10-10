@@ -20,10 +20,18 @@ namespace Proyecto_Atenciones_Enfermeria.Data
         public DbSet<RegistroAtencion> RegistrosAtencion { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-            base.OnModelCreating(modelBuilder);
+        {
+            // Aplicar filtro global para cada entidad que tenga la propiedad Borrado
+            modelBuilder.Entity<Efector>().HasQueryFilter(e => !e.Borrado);
+            modelBuilder.Entity<Usuario>().HasQueryFilter(u => !u.Borrado);
+            modelBuilder.Entity<Paciente>().HasQueryFilter(p => !p.Borrado);
+            modelBuilder.Entity<Derivacion>().HasQueryFilter(d => !d.Borrado);
+            modelBuilder.Entity<Atencion>().HasQueryFilter(a => !a.Borrado);
+            modelBuilder.Entity<TipoPrestacion>().HasQueryFilter(t => !t.Borrado);
+            modelBuilder.Entity<Prestacion>().HasQueryFilter(p => !p.Borrado);
+            modelBuilder.Entity<RegistroAtencion>().HasQueryFilter(r => !r.Borrado);
 
-            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2024 a las 21:18:57
+-- Tiempo de generación: 10-10-2024 a las 21:09:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,100 +24,131 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `atencion`
+-- Estructura de tabla para la tabla `atenciones`
 --
 
-CREATE TABLE `atencion` (
+CREATE TABLE `atenciones` (
   `Id_atencion` int(11) NOT NULL,
   `Id_usuario` int(11) NOT NULL,
   `Id_paciente` int(11) NOT NULL,
   `Id_derivacion` int(11) DEFAULT NULL,
-  `Tipo_atencion` varchar(100) DEFAULT NULL,
-  `Fecha_atencion` date NOT NULL,
-  `Hora_atencion` time NOT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Tipo_atencion` longtext DEFAULT NULL,
+  `Fecha_atencion` datetime(6) NOT NULL,
+  `Hora_atencion` time(6) NOT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `derivacion`
+-- Estructura de tabla para la tabla `derivaciones`
 --
 
-CREATE TABLE `derivacion` (
+CREATE TABLE `derivaciones` (
   `Id_derivacion` int(11) NOT NULL,
-  `Tipo_traslado` varchar(100) DEFAULT NULL,
-  `Destino` varchar(255) DEFAULT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Tipo_traslado` longtext DEFAULT NULL,
+  `Destino` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `efector`
+-- Estructura de tabla para la tabla `efectores`
 --
 
-CREATE TABLE `efector` (
+CREATE TABLE `efectores` (
   `Id_efector` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Direccion` varchar(255) DEFAULT NULL,
-  `Localidad` varchar(100) DEFAULT NULL,
-  `Programa` varchar(100) DEFAULT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Nombre` longtext DEFAULT NULL,
+  `Direccion` longtext DEFAULT NULL,
+  `Localidad` longtext DEFAULT NULL,
+  `Programa` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `paciente`
+-- Estructura de tabla para la tabla `pacientes`
 --
 
-CREATE TABLE `paciente` (
+CREATE TABLE `pacientes` (
   `Id_paciente` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL,
-  `DNI` varchar(20) NOT NULL,
-  `Telefono` varchar(20) DEFAULT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Nombre` longtext DEFAULT NULL,
+  `Apellido` longtext DEFAULT NULL,
+  `DNI` longtext DEFAULT NULL,
+  `Telefono` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `prestacion`
+-- Estructura de tabla para la tabla `prestaciones`
 --
 
-CREATE TABLE `prestacion` (
+CREATE TABLE `prestaciones` (
   `Id_prestacion` int(11) NOT NULL,
   `Id_tipo_prestacion` int(11) NOT NULL,
-  `Prestacion` varchar(100) NOT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `PrestacionNombre` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `prestaciones`
+--
+
+INSERT INTO `prestaciones` (`Id_prestacion`, `Id_tipo_prestacion`, `PrestacionNombre`, `Borrado`) VALUES
+(1, 1, 'Venoclisis', 0),
+(2, 1, 'V. Endovenosa', 0),
+(3, 1, 'V. Intramuscular', 0),
+(4, 1, 'V. Subcutánea', 0),
+(5, 2, 'Via Oral', 0),
+(6, 2, 'V. Sublingual', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `registro_atencion`
+-- Estructura de tabla para la tabla `registrosatencion`
 --
 
-CREATE TABLE `registro_atencion` (
+CREATE TABLE `registrosatencion` (
   `Id_registro_atencion` int(11) NOT NULL,
   `Id_atencion` int(11) NOT NULL,
   `Id_prestacion` int(11) NOT NULL,
-  `Observaciones` varchar(255) DEFAULT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Observaciones` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_prestacion`
+-- Estructura de tabla para la tabla `tiposprestacion`
 --
 
-CREATE TABLE `tipo_prestacion` (
+CREATE TABLE `tiposprestacion` (
   `Id_tipo_prestacion` int(11) NOT NULL,
-  `Tipo_prestacion` varchar(100) NOT NULL
+  `Tipo_prestacion` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tiposprestacion`
+--
+
+INSERT INTO `tiposprestacion` (`Id_tipo_prestacion`, `Tipo_prestacion`, `Borrado`) VALUES
+(1, 'Parenteral', 0),
+(2, 'Enteral', 0),
+(3, 'Mucosas y Piel', 0),
+(4, 'Curaciones', 0),
+(5, 'Lavajes', 0),
+(6, 'Sondaje', 0),
+(7, 'Antropometria', 0),
+(8, 'Controles', 0),
+(9, 'Internacion', 0),
+(10, 'Triagge', 0),
+(11, 'Salidas de Ambulancia (Propia)', 0),
+(12, 'Salidas de Ambulancia (Sempro)', 0);
 
 -- --------------------------------------------------------
 
@@ -128,67 +159,85 @@ CREATE TABLE `tipo_prestacion` (
 CREATE TABLE `usuarios` (
   `Id_usuario` int(11) NOT NULL,
   `Id_efector` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Apellido` varchar(100) NOT NULL,
-  `DNI` varchar(20) NOT NULL,
-  `Correo` varchar(100) NOT NULL,
-  `Telefono` varchar(20) DEFAULT NULL,
-  `Hash_Password` varchar(255) NOT NULL,
-  `Rol` varchar(50) DEFAULT NULL,
-  `borrado` tinyint(1) NOT NULL
+  `Nombre` longtext DEFAULT NULL,
+  `Apellido` longtext DEFAULT NULL,
+  `DNI` longtext DEFAULT NULL,
+  `Correo` longtext DEFAULT NULL,
+  `Telefono` longtext DEFAULT NULL,
+  `Hash_Password` longtext DEFAULT NULL,
+  `Rol` longtext DEFAULT NULL,
+  `Borrado` tinyint(1) NOT NULL,
+  `EfectorId_efector` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `__efmigrationshistory`
+--
+
+CREATE TABLE `__efmigrationshistory` (
+  `MigrationId` varchar(150) NOT NULL,
+  `ProductVersion` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `__efmigrationshistory`
+--
+
+INSERT INTO `__efmigrationshistory` (`MigrationId`, `ProductVersion`) VALUES
+('20241010175201_Inicial', '8.0.10');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `atencion`
+-- Indices de la tabla `atenciones`
 --
-ALTER TABLE `atencion`
+ALTER TABLE `atenciones`
   ADD PRIMARY KEY (`Id_atencion`),
-  ADD KEY `FK_Atencion_Usuarios` (`Id_usuario`),
-  ADD KEY `FK_Atencion_Paciente` (`Id_paciente`),
-  ADD KEY `FK_Atencion_Derivacion` (`Id_derivacion`);
+  ADD KEY `IX_Atenciones_Id_derivacion` (`Id_derivacion`),
+  ADD KEY `IX_Atenciones_Id_paciente` (`Id_paciente`),
+  ADD KEY `IX_Atenciones_Id_usuario` (`Id_usuario`);
 
 --
--- Indices de la tabla `derivacion`
+-- Indices de la tabla `derivaciones`
 --
-ALTER TABLE `derivacion`
+ALTER TABLE `derivaciones`
   ADD PRIMARY KEY (`Id_derivacion`);
 
 --
--- Indices de la tabla `efector`
+-- Indices de la tabla `efectores`
 --
-ALTER TABLE `efector`
+ALTER TABLE `efectores`
   ADD PRIMARY KEY (`Id_efector`);
 
 --
--- Indices de la tabla `paciente`
+-- Indices de la tabla `pacientes`
 --
-ALTER TABLE `paciente`
-  ADD PRIMARY KEY (`Id_paciente`),
-  ADD UNIQUE KEY `DNI` (`DNI`);
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`Id_paciente`);
 
 --
--- Indices de la tabla `prestacion`
+-- Indices de la tabla `prestaciones`
 --
-ALTER TABLE `prestacion`
+ALTER TABLE `prestaciones`
   ADD PRIMARY KEY (`Id_prestacion`),
-  ADD KEY `FK_Prestacion_TipoPrestacion` (`Id_tipo_prestacion`);
+  ADD KEY `IX_Prestaciones_Id_tipo_prestacion` (`Id_tipo_prestacion`);
 
 --
--- Indices de la tabla `registro_atencion`
+-- Indices de la tabla `registrosatencion`
 --
-ALTER TABLE `registro_atencion`
+ALTER TABLE `registrosatencion`
   ADD PRIMARY KEY (`Id_registro_atencion`),
-  ADD KEY `FK_RegistroAtencion_Atencion` (`Id_atencion`),
-  ADD KEY `FK_RegistroAtencion_Prestacion` (`Id_prestacion`);
+  ADD KEY `IX_RegistrosAtencion_Id_atencion` (`Id_atencion`),
+  ADD KEY `IX_RegistrosAtencion_Id_prestacion` (`Id_prestacion`);
 
 --
--- Indices de la tabla `tipo_prestacion`
+-- Indices de la tabla `tiposprestacion`
 --
-ALTER TABLE `tipo_prestacion`
+ALTER TABLE `tiposprestacion`
   ADD PRIMARY KEY (`Id_tipo_prestacion`);
 
 --
@@ -196,54 +245,59 @@ ALTER TABLE `tipo_prestacion`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`Id_usuario`),
-  ADD UNIQUE KEY `DNI` (`DNI`),
-  ADD KEY `FK_Usuarios_Efector` (`Id_efector`);
+  ADD KEY `IX_Usuarios_EfectorId_efector` (`EfectorId_efector`);
+
+--
+-- Indices de la tabla `__efmigrationshistory`
+--
+ALTER TABLE `__efmigrationshistory`
+  ADD PRIMARY KEY (`MigrationId`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `atencion`
+-- AUTO_INCREMENT de la tabla `atenciones`
 --
-ALTER TABLE `atencion`
+ALTER TABLE `atenciones`
   MODIFY `Id_atencion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `derivacion`
+-- AUTO_INCREMENT de la tabla `derivaciones`
 --
-ALTER TABLE `derivacion`
+ALTER TABLE `derivaciones`
   MODIFY `Id_derivacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `efector`
+-- AUTO_INCREMENT de la tabla `efectores`
 --
-ALTER TABLE `efector`
+ALTER TABLE `efectores`
   MODIFY `Id_efector` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `paciente`
+-- AUTO_INCREMENT de la tabla `pacientes`
 --
-ALTER TABLE `paciente`
+ALTER TABLE `pacientes`
   MODIFY `Id_paciente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `prestacion`
+-- AUTO_INCREMENT de la tabla `prestaciones`
 --
-ALTER TABLE `prestacion`
-  MODIFY `Id_prestacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `prestaciones`
+  MODIFY `Id_prestacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `registro_atencion`
+-- AUTO_INCREMENT de la tabla `registrosatencion`
 --
-ALTER TABLE `registro_atencion`
+ALTER TABLE `registrosatencion`
   MODIFY `Id_registro_atencion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `tipo_prestacion`
+-- AUTO_INCREMENT de la tabla `tiposprestacion`
 --
-ALTER TABLE `tipo_prestacion`
-  MODIFY `Id_tipo_prestacion` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tiposprestacion`
+  MODIFY `Id_tipo_prestacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -256,31 +310,31 @@ ALTER TABLE `usuarios`
 --
 
 --
--- Filtros para la tabla `atencion`
+-- Filtros para la tabla `atenciones`
 --
-ALTER TABLE `atencion`
-  ADD CONSTRAINT `FK_Atencion_Derivacion` FOREIGN KEY (`Id_derivacion`) REFERENCES `derivacion` (`Id_derivacion`) ON DELETE SET NULL,
-  ADD CONSTRAINT `FK_Atencion_Paciente` FOREIGN KEY (`Id_paciente`) REFERENCES `paciente` (`Id_paciente`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_Atencion_Usuarios` FOREIGN KEY (`Id_usuario`) REFERENCES `usuarios` (`Id_usuario`) ON DELETE CASCADE;
+ALTER TABLE `atenciones`
+  ADD CONSTRAINT `FK_Atenciones_Derivaciones_Id_derivacion` FOREIGN KEY (`Id_derivacion`) REFERENCES `derivaciones` (`Id_derivacion`),
+  ADD CONSTRAINT `FK_Atenciones_Pacientes_Id_paciente` FOREIGN KEY (`Id_paciente`) REFERENCES `pacientes` (`Id_paciente`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_Atenciones_Usuarios_Id_usuario` FOREIGN KEY (`Id_usuario`) REFERENCES `usuarios` (`Id_usuario`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `prestacion`
+-- Filtros para la tabla `prestaciones`
 --
-ALTER TABLE `prestacion`
-  ADD CONSTRAINT `FK_Prestacion_TipoPrestacion` FOREIGN KEY (`Id_tipo_prestacion`) REFERENCES `tipo_prestacion` (`Id_tipo_prestacion`) ON DELETE CASCADE;
+ALTER TABLE `prestaciones`
+  ADD CONSTRAINT `FK_Prestaciones_TiposPrestacion_Id_tipo_prestacion` FOREIGN KEY (`Id_tipo_prestacion`) REFERENCES `tiposprestacion` (`Id_tipo_prestacion`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `registro_atencion`
+-- Filtros para la tabla `registrosatencion`
 --
-ALTER TABLE `registro_atencion`
-  ADD CONSTRAINT `FK_RegistroAtencion_Atencion` FOREIGN KEY (`Id_atencion`) REFERENCES `atencion` (`Id_atencion`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_RegistroAtencion_Prestacion` FOREIGN KEY (`Id_prestacion`) REFERENCES `prestacion` (`Id_prestacion`) ON DELETE CASCADE;
+ALTER TABLE `registrosatencion`
+  ADD CONSTRAINT `FK_RegistrosAtencion_Atenciones_Id_atencion` FOREIGN KEY (`Id_atencion`) REFERENCES `atenciones` (`Id_atencion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_RegistrosAtencion_Prestaciones_Id_prestacion` FOREIGN KEY (`Id_prestacion`) REFERENCES `prestaciones` (`Id_prestacion`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `FK_Usuarios_Efector` FOREIGN KEY (`Id_efector`) REFERENCES `efector` (`Id_efector`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_Usuarios_Efectores_EfectorId_efector` FOREIGN KEY (`EfectorId_efector`) REFERENCES `efectores` (`Id_efector`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
